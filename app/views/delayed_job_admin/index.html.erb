@@ -1,4 +1,6 @@
-<p>Delayed::Job.count: <%= Delayed::Job.count %></p>
+<p>Delayed::Job.count: <%= @delayed_jobs.total_entries %></p>
+
+<div><%= will_paginate @delayed_jobs %></div>
 
 <table id="jobs">
   <thead>
@@ -17,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <% Delayed::Job.all.reverse.each do |job| %>
+    <% @delayed_jobs.each do |job| %>
       <tr class="job" id="job-<%= job.id %>">
         <td><%= job.id %></td>
         <td><%= job.priority %></td>
@@ -37,6 +39,8 @@
     <% end %>
   </tbody>
 </table>
+
+<div><%= will_paginate @delayed_jobs %></div>
 
 <script>
   $(document).ready(function(){
